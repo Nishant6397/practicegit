@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import Todo from "./Todo";
 import TodoForm from "./TodoForm";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
+      toast("Oops");
+      console.log("oops");
       return;
     }
 
     const newTododos = [todo, ...todos];
     setTodos(newTododos);
+    toast("Successfully added");
     // console.log(todo, ...todos);
   };
   const completeTodo = (id) => {
@@ -33,7 +37,6 @@ const TodoList = () => {
     if (!todoId.text || /^\s*$/.test(todoId.text)) {
       return;
     }
-    
 
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
@@ -49,6 +52,7 @@ const TodoList = () => {
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
+      <ToastContainer />
     </div>
   );
 };
